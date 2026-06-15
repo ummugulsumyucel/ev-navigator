@@ -75,16 +75,11 @@ EV Navigator, Türkiye'deki elektrikli araç sürücüleri için tasarlanmış k
 
 | Ana Sayfa | Şarj Haritası | Güzergah |
 |:---------:|:-------------:|:--------:|
-| ![home](<img width="623" height="908" alt="image" src="https://github.com/user-attachments/assets/4aaea8f7-6166-4f79-bdda-fc57de502168" />
-) | ![map](<img width="625" height="912" alt="image" src="https://github.com/user-attachments/assets/ad4917ca-d9c0-4dba-b470-ae68f89c86fe" />
-) | ![planner](<img width="623" height="905" alt="image" src="https://github.com/user-attachments/assets/76ba9342-1ac7-48e1-9246-673468aaaf9e" />
-) |
+| <img width="350" height="500" alt="image" src="https://github.com/user-attachments/assets/4aaea8f7-6166-4f79-bdda-fc57de502168" /> | <img width="350" height="500" alt="image" src="https://github.com/user-attachments/assets/ad4917ca-d9c0-4dba-b470-ae68f89c86fe" />| (<img width="350" height="500" alt="image" src="https://github.com/user-attachments/assets/76ba9342-1ac7-48e1-9246-673468aaaf9e" /> |
 
 | Batarya | Maliyet | Topluluk |
 |:-------:|:-------:|:--------:|
-| ![battery](docs/screenshots/battery.png) | ![cost](<img width="623" height="913" alt="image" src="https://github.com/user-attachments/assets/8a064c6b-e3fe-4a72-8da3-c3f7f21ee20e" />
-) | ![community](<img width="626" height="908" alt="image" src="https://github.com/user-attachments/assets/a5608fd6-a395-4b47-b49b-a3ec90c05009" />
-) |
+| (docs/screenshots/battery.png) | <img width="350" height="500" alt="image" src="https://github.com/user-attachments/assets/8a064c6b-e3fe-4a72-8da3-c3f7f21ee20e" /> | <img width="350" height="500" alt="image" src="https://github.com/user-attachments/assets/a5608fd6-a395-4b47-b49b-a3ec90c05009" />|
 
 ---
 
@@ -154,73 +149,7 @@ feature/
 
 ---
 
-## 🚀 Kurulum
 
-### Gereksinimler
-
-- Flutter SDK `>=3.2.0`
-- Dart SDK `>=3.2.0`
-- Firebase projesi (Firestore, Auth, FCM etkin)
-- Google Maps API anahtarı
-
-### 1. Repoyu klonla
-
-```bash
-git clone https://github.com/kullanici/ev-navigator.git
-cd ev-navigator
-```
-
-### 2. Bağımlılıkları yükle
-
-```bash
-flutter pub get
-```
-
-### 3. Firebase yapılandırması
-
-```bash
-# FlutterFire CLI ile otomatik yapılandır
-dart pub global activate flutterfire_cli
-flutterfire configure --project=<firebase-proje-id>
-```
-
-### 4. Android — Google Maps API anahtarı
-
-`android/app/src/main/AndroidManifest.xml` içine:
-
-```xml
-<meta-data
-    android:name="com.google.android.geo.API_KEY"
-    android:value="YOUR_GOOGLE_MAPS_API_KEY"/>
-```
-
-### 5. Web — Google Maps API anahtarı
-
-`web/index.html` içinde mevcut satırı güncelle:
-
-```html
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
-```
-
-### 6. Uygulamayı çalıştır
-
-```bash
-# Web
-flutter run -d chrome
-
-# Android
-flutter run -d android
-
-# Windows
-flutter run -d windows
-```
-
-> Google Directions API anahtarı için:
-> ```bash
-> flutter run --dart-define=GOOGLE_DIRECTIONS_API_KEY=YOUR_KEY
-> ```
-
----
 
 ## 🔥 Firestore Koleksiyonları
 
@@ -238,40 +167,6 @@ flutter run -d windows
 | `services` | EV servis merkezleri |
 | `news` | Uygulama içi haberler |
 
-### Örnek İstasyon Belgesi
-
-```json
-{
-  "name": "ZES Maslak",
-  "network": "zes",
-  "location": { "lat": 41.1086, "lng": 29.0214 },
-  "address": "Maslak Mah. Büyükdere Cad. No:237",
-  "city": "İstanbul",
-  "sockets": [
-    { "id": "s1", "type": "ccs2", "powerKw": 180, "status": "available" },
-    { "id": "s2", "type": "acType2", "powerKw": 22, "status": "available" }
-  ],
-  "status": "available",
-  "reliabilityScore": 4.5,
-  "supportsReservation": true,
-  "photoUrls": [],
-  "availableCount": 2,
-  "totalSockets": 4,
-  "pricePerKwh": 12.50,
-  "updatedAt": "<serverTimestamp>"
-}
-```
-
----
-
-## 🛡️ Güvenlik Kuralları
-
-Firestore Security Rules `firestore.rules` dosyasında tanımlıdır:
-
-```bash
-# Kuralları deploy et
-firebase deploy --only firestore:rules,firestore:indexes
-```
 
 ---
 
