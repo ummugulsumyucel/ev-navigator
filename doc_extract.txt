@@ -1,0 +1,182 @@
+⚡
+EV NAVIGATOR
+Türkiye'nin Elektrikli Araç Süper Uygulaması
+Startup Fikir Analizi & Ürün Tasarımı
+Mayıs 2026
+YÖNETİCİ ÖZETİ
+Türkiye elektrikli araç (EV) pazarı 2025'te tarihi bir büyüme yaşadı. 190.000'i aşan yıllık satış rakamı ve toplam pazar payının %17,5'e ulaşmasıyla birlikte sektör artık niş olmaktan çıktı. Ancak bu hızlı büyümeyle orantılı bir dijital hizmet altyapısı henüz oluşmadı. Bu boşluk, güçlü bir mobil uygulama girişimi için ideal zemin sunuyor.
+EV Navigator, Türkiye'deki elektrikli ve hibrit araç kullanıcılarının tüm ihtiyaçlarını tek çatı altında toplayan bir 'süper uygulama' konseptidir. Şarj istasyonu haritasından batarya sağlığı takibine, menzil planlamadan servise kadar her adımda kullanıcının yanında olmayı hedefler.
+1. PAZAR DURUMU: NEDEN ŞİMDİ?
+Türkiye EV Pazarı — Kilit Rakamlar
+Gösterge
+Değer & Yorum
+Trafikte EV Sayısı
+321.710 adet (Eylül 2025) — bir yıl önce 185.513'tü
+2025 Yıllık Satış
+~191.960 tam elektrikli araç (+82% büyüme)
+Pazar Payı
+%17,5 — satılan her 6 arabadan 1'i tam elektrikli
+Hibrit + EV Toplam
+Toplam pazarın %44,9'u elektrik destekli
+Avrupa Sıralaması
+H1 2025'te Avrupa'nın 4. büyük EV pazarı (S&P Global)
+Şarj İstasyonu
+26.046 adet (Aralık 2024) — hızla artıyor
+Büyümeyi Tetikleyen Faktörler
+ÖTV avantajı: 160 kW altı modellerde düşük vergi dilimi talebi patlatıyor
+TOGG etkisi: Yerli marka güven ve merak yarattı, Ekim 2025'te pazar lideri oldu
+Çin markaları: BYD, MG, Chery fiyat rekabetini kızıştırıyor
+Tesla ivmesi: Ağustos 2025'te 8.730 Model Y ile aylık ikinci büyük marka
+Bilinç artışı: Yakıt maliyeti hesabı yapan kullanıcılar EV'e geçiyor
+2. ALAN AÇIKLARI: GERÇEK KULLANICI SORUNLARI
+Şikayetvar verilerine göre elektrikli araç şikayetleri 2025 yılında bir önceki yıla kıyasla %117 artış gösterdi. Şarj istasyonu şikayetleri ise tek başına %55 yükseldi. Bu veriler, pazarın büyüdüğü ama sorunların çözülmediğini net biçimde ortaya koyuyor.
+Kategori 1: Şarj Altyapısı Kaosu
+⚡ Şarj Altyapısı Sorunları
+🔴 Haritada 'aktif' görünen istasyonların bozuk olması — yolda mahsur kalma riski
+🔴 Farklı ağlar için farklı uygulamalar (ZES, Eşarj, Trugo, WAT, Tesla...) — uygulama çöplüğü
+🔴 Gerçek zamanlı doluluk bilgisi yok — gidince dolu çıkıyor
+🔴 Şarj ortasında bağlantı kopması, ödeme alınıp şarj olmaması
+🔴 Güzergah üstü istasyon boşlukları — Türkiye'nin büyük bölümü kapsamsız
+🔴 Soket tipi uyumsuzluğu (CHAdeMO, CCS, AC Type 2 karışıklığı)
+Kategori 2: Araç Kullanım Kaygıları
+🚗 Araç Kullanım Sorunları
+🔴 Vaat edilen menzil ile gerçek menzil arasındaki uçurum — özellikle kışın
+🔴 Batarya sağlığı takibi yapan bağımsız bir uygulama yok
+🔴 Şarj maliyeti hesabı ve kWh/100km karşılaştırması için araç eksikliği
+🔴 Uzun yolculuk planlaması (mola + şarj + süre optimizasyonu) yapılamıyor
+🔴 Yazılım güncellemeleri sonrası artan teknik hatalar için destek kanalı yok
+Kategori 3: Servis & Satış Sonrası
+🔧 Servis & Satış Sonrası Sorunları
+🔴 Yetkili EV servisi sayısı yetersiz, randevu bekleme süreleri çok uzun
+🔴 Servis teknisyenlerinin EV konusunda yetkin olmaması (özellikle taşra)
+🔴 İkinci el EV alım-satımında batarya geçmişi ve sağlığı bilinemyor
+🔴 Garanti süreçleri karmaşık, tüketici hak bilinci düşük
+🔴 Sigorta ve hasar süreçleri EV'ye özel adapte edilmemiş
+Kategori 4: Bilgi & Topluluk
+📚 Bilgi & Topluluk Eksiklikleri
+🔴 Araç satın alma kararında güvenilir Türkçe kaynak eksikliği
+🔴 Farklı modellerin gerçek dünya performansını karşılaştıran platform yok
+🔴 Teşvik, muafiyet ve vergi avantajlarını anlatan merkezi rehber yok
+🔴 Türkçe EV topluluğu dağınık — Twitter/X, Facebook grupları koordinasyonsuz
+3. ÜRÜN FİKRİ: EV NAVIGATOR
+Vizyon
+"Türkiye'deki her elektrikli araç kullanıcısının
+telefonda ihtiyaç duyduğu tek uygulama"
+Özellik Modülü 1: Akıllı Şarj Haritası
+Sorun: Parçalı, güvenilmez şarj bilgisi
+Kullanıcılar şu an 5-6 farklı uygulamayı açmak zorunda. EV Navigator tüm ağları tek haritada birleştirir.
+🗺️ Tüm şarj ağlarını (ZES, Eşarj, Trugo, WAT, Tesla, Shell Recharge) tek haritada gösterir
+🟢 Gerçek zamanlı doluluk durumu — API entegrasyonu + kullanıcı raporları ile doğrulama
+⭐ İstasyon güvenilirlik puanı: Bozulma geçmişi, kullanıcı yorumları ve anlık durum birleşik skora dönüşür
+🔌 Soket tipi filtresi: CCS2, CHAdeMO, AC Type 2, Tesla — aracınıza uygun istasyonları gösterir
+📅 Şarj yuvası rezervasyon entegrasyonu (ağlar API açtıkça)
+🔔 Kapalı / arızalı istasyon anlık bildirim — gitmeden önce öğrenirsiniz
+💰 İstasyon fiyat karşılaştırması: Aynı güzergahdaki en ucuz seçeneği önerir
+Özellik Modülü 2: Akıllı Seyahat Planlayıcı
+Sorun: Uzun yolculuklarda menzil endişesi ve şarj planlama zorluğu
+Range anxiety (menzil kaygısı) EV geçişinin önündeki en büyük psikolojik engel. Planlayıcı bu korkuyu veriye dönüştürür.
+🧭 Başlangıç-bitiş noktası, mevcut batarya ve araç modeline göre optimal güzergah hesabı
+⏱️ Kaç mola, nerede şarj, ne kadar süre beklenecek — adım adım plan
+🌡️ Hava durumu entegrasyonu: Soğuk havada batarya kaybını otomatik hesaba katar
+🔀 Alternatif güzergah karşılaştırması: Daha hızlı mı, daha ucuz mu, daha güvenli mi?
+📊 Seyahat geçmişi ve verimlilik analizi: Her yolculuktan öğrenen kişiselleştirilmiş tahminler
+Özellik Modülü 3: Batarya & Araç Sağlığı Takibi
+Sorun: Kullanıcılar aracın gerçek batarya durumunu bilmiyor
+İkinci el alım-satımda ve uzun vadeli kullanımda batarya sağlığı kritik ama bilinmez. Bu modül şeffaflık sağlar.
+🔋 OBD-II Bluetooth bağlantısı ile batarya sağlığı (SOH) ölçümü ve takibi
+📈 Gerçek menzil vs. vaat edilen menzil karşılaştırması — aylık trend raporu
+🌡️ Şarj döngüsü sayacı ve batarya ısı yönetimi tavsiyeleri
+📉 Kış/yaz performans analizi: Sıcaklığa göre menzil düşüşü kişisel verilere dayalı
+🤝 İkinci el alım aracı: Satışa çıkan araca OBD takılıp batarya raporu üretme
+🔧 Periyodik bakım hatırlatıcısı (yazılım güncellemesi, lastik basıncı, servis zamanı)
+Özellik Modülü 4: Maliyet & Tasarruf Hesaplayıcı
+Sorun: EV'nin gerçek maliyeti hesaplanamıyor
+Çoğu kullanıcı yakıt tasarrufunu sezgisel tahmin ediyor. Bu modül somut rakamlar sunar.
+⚡ kWh/100 km hesabı ve aylık enerji maliyeti takibi — tarife bazlı (gece/gündüz)
+💵 EV vs. benzinli maliyet karşılaştırıcı: Yıllık tasarruf kaç TL?
+🏠 Şarj lokasyonu bazlı maliyet: Evde şarj vs. hızlı şarj vs. işyeri — en ekonomiği hangisi?
+🌿 CO₂ tasarruf sayacı: Çevre etkisi görselleştirme — paylaşılabilir sosyal kart
+📋 ÖTV, MTV teşvik hesaplayıcı: Model seçiminde vergi avantajını karşılaştırır
+Özellik Modülü 5: Servis & Destek Ağı
+Sorun: EV yetkili servisleri yetersiz ve dağınık
+Türkiye'de EV sahiplerinin %40'ı servis deneyiminden memnun değil. Bu modül güvenilir bir servis ağı oluşturur.
+🏪 Harita tabanlı EV servis rehberi: Marka bazında yetkili servis, ÖTV'li değerleme merkezleri
+⭐ Kullanıcı değerlendirmeli servis puanlama sistemi — sahte yoruma karşı doğrulanmış sahip yorumları
+📅 Online servis randevusu: Birden fazla servisle entegrasyon
+🔍 Arıza kodu okuyucu: OBD bağlantısıyla hata kodu alınınca Türkçe açıklama ve tavsiye
+🆘 'Yolda kaldım' acil asistan: Konum paylaş, en yakın yetkili servise çek çağır
+🛡️ Sigorta karşılaştırma: EV'ye özel poliçeleri yan yana koyar (hasar, batarya teminatı)
+Özellik Modülü 6: Topluluk & İçerik
+Sorun: Türkçe güvenilir EV bilgisi ve topluluk yok
+Türk EV sahipleri deneyimlerini parçalı mecralarda paylaşıyor. Bu modül onları bir araya getirir.
+💬 Model bazlı kullanıcı forumu: Togg, Tesla, BYD, MG sahipleri kendi topluluklarında
+📰 Uzman içerik: Editöryal yazılar, video incelemeler, şarj ipuçları
+📊 Aylık 'Gerçek Dünya Raporu': Aynı modeli kullanan kişilerin ort. menzil ve maliyet verileri
+📢 Teşvik & haber bildirimleri: Yeni ÖTV düzenlemeleri, devlet destekleri anında bildirim
+🏷️ Satılık/kiralık EV ilanları: Batarya raporu zorunlu, doğrulanmış ilan sistemi
+4. GELİR MODELİ
+Temel özellikler ücretsiz, gelir 4 farklı kanaldan sağlanır:
+Gelir Kanalı
+Açıklama & Potansiyel
+Freemium Abonelik
+Ayda 49-99 TL: Sınırsız rota planlama, gelişmiş batarya analizi, öncelikli destek
+B2B Şarj Ağı Lisansı
+ZES, Eşarj vb. için gerçek zamanlı veri analizi dashboardı — aylık SaaS ücreti
+Sigorta & Servis Aracılığı
+Karşılaştırma yönlendirmesinden komisyon — sigortacılar ve servisler için lead
+Veri & Analitik
+Anonim kitlesel kullanım verisi; şarj ağlarına, belediyeye, otomotive sat
+Reklam (hedefli)
+EV sahiplerine yönelik içerik reklamı — aksesuarlar, seyahat sigortası vb.
+5. REKABETÇİ KONUM
+Mevcut Oyuncular Ne Yapıyor / Yapamıyor?
+Mevcut Oyuncu
+Zayıf Nokta & EV Navigator Farkı
+ZES, Eşarj, Trugo
+Sadece kendi istasyonlarını gösteriyor. Rakip ağları tek ekranda sunamaz.
+Google Maps / Apple Maps
+EV istasyonlarını gösterir ama gerçek zamanlı durum, doluluk, güvenilirlik skoru yok
+TOGG Uygulaması
+Sadece TOGG araçlarına hizmet eder, marka-agnostik değil
+Uluslararası (PlugShare, ABRP)
+Türkiye özelinde zayıf veri, Türkçe destek yok, lokal servis entegrasyonu yok
+Genel araç uygulamaları
+EV'e özel batarya/menzil/maliyet özellikleri hiç yok
+Sürdürülebilir Rekabet Avantajı
+🔄 Ağ etkisi: Kullanıcı arttıkça veri artar → tahminler iyileşir → daha fazla kullanıcı çeker
+🛡️ Veri hendeği: Türkiye'ye özgü gerçek kullanım veritabanı rakip tarafından kopyalanamaz
+🏠 Topluluk kilidi: Aktif topluluk kullanıcıları uygulamada tutar
+🇹🇷 Yerli dil ve kültür: Türkçe destek, lokal teşvik takibi, Türk markaları önceliği
+6. YOLHARITASI
+Aşama
+Hedef & Aksiyonlar
+Faz 1 — MVP
+(Ay 1-4)
+Tüm şarj ağlarını birleştiren harita + güvenilirlik skorlaması + kullanıcı raporu sistemi. Hedef: 10.000 aktif kullanıcı
+Faz 2 — Derinlik
+(Ay 5-9)
+OBD entegrasyonu, rota planlayıcı, maliyet hesaplayıcı, servis rehberi. Hedef: 50.000 kullanıcı, ilk B2B sözleşmesi
+Faz 3 — Ekosistem
+(Ay 10-18)
+Topluluk özelliği, ikinci el ilan pazar yeri, sigorta entegrasyonu, batarya rapor servisi. Hedef: 150.000 kullanıcı, pozitif unit economics
+Faz 4 — Büyüme
+(Ay 18+)
+Kurumsal filo yönetimi modülü (şirket araçları), komşu pazarlar (Yunanistan, Balkanlar)
+7. HEDEF KULLANICI PROFİLLERİ
+Profil A — Şehirli Günlük Kullanıcı
+30-45 yaş, İstanbul/Ankara/İzmir, ofis-ev arası günlük şarj ihtiyacı, şarj maliyetini optimize etmek istiyor. Acı noktası: farklı AVM'lerdeki istasyon uygulamaları karmaşıklığı.
+Profil B — Uzun Yol Seyahat Eden
+35-55 yaş, tatil ve iş seyahati yapan, menzil kaygısı yüksek. 'Acaba gidebilir miyim?' sorusuna somut yanıt arıyor. Acı noktası: güzergah planlayıcı yok, çalışmayan şarj noktası riski.
+Profil C — Yeni EV Alıcısı
+25-40 yaş, benzinliden geçiş yapıyor, araç karşılaştırma ve gerçek kullanıcı verisi arıyor. Acı noktası: Türkçe güvenilir kaynak yok, yorumlar dağınık.
+Profil D — İkinci El EV Arayanlar
+28-50 yaş, bütçe kısıtlı, batarya sağlığından emin olmak istiyor. Acı noktası: İkinci el EV'nin batarya durumu bilinemiyor, güvensizlik yüksek.
+8. SONUÇ: NEDEN BU FİKİR?
+✅  Büyük ve hızlı büyüyen pazar: 300.000+ EV, 2026'da 500.000+ olması bekleniyor
+✅  Net ve acı veren sorunlar: Şikayetler %117 arttı — ihtiyaç ispatlandı
+✅  Yazılım ağırlıklı: Donanım yatırımı minimum, tekrarlanabilir gelir modeli
+✅  Lokal rakip boşluğu: Türkiye'ye özel güçlü bir oyuncu henüz yok
+✅  Ağ etkisi ve veri hendeği: Zamanla güçlenen, kopyalaması güç rekabet avantajı
+✅  Çoklu gelir kanalı: Abonelik + B2B + veri + reklam + komisyon
+EV Navigator — Yol Elektrik Kokar
+Türkiye'nin elektrikli dönüşümünün yazılım altyapısı olmaya hazır.

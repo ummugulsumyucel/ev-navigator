@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "698436842118",
+    "project_id": "ev-navigator-tr",
+    "storage_bucket": "ev-navigator-tr.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698436842118:android:ecbfefd917ef124da8d707",
+        "android_client_info": {
+          "package_name": "com.example.ev_navigator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBH7gvce_Qg2OKU_8rwqfcsfhV_zbnpOiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
