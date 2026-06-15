@@ -75,11 +75,16 @@ EV Navigator, Türkiye'deki elektrikli araç sürücüleri için tasarlanmış k
 
 | Ana Sayfa | Şarj Haritası | Güzergah |
 |:---------:|:-------------:|:--------:|
-| ![home](docs/screenshots/home.png) | ![map](docs/screenshots/map.png) | ![planner](docs/screenshots/planner.png) |
+| ![home](<img width="623" height="908" alt="image" src="https://github.com/user-attachments/assets/4aaea8f7-6166-4f79-bdda-fc57de502168" />
+) | ![map](<img width="625" height="912" alt="image" src="https://github.com/user-attachments/assets/ad4917ca-d9c0-4dba-b470-ae68f89c86fe" />
+) | ![planner](<img width="623" height="905" alt="image" src="https://github.com/user-attachments/assets/76ba9342-1ac7-48e1-9246-673468aaaf9e" />
+) |
 
 | Batarya | Maliyet | Topluluk |
 |:-------:|:-------:|:--------:|
-| ![battery](docs/screenshots/battery.png) | ![cost](docs/screenshots/cost.png) | ![community](docs/screenshots/community.png) |
+| ![battery](docs/screenshots/battery.png) | ![cost](<img width="623" height="913" alt="image" src="https://github.com/user-attachments/assets/8a064c6b-e3fe-4a72-8da3-c3f7f21ee20e" />
+) | ![community](<img width="626" height="908" alt="image" src="https://github.com/user-attachments/assets/a5608fd6-a395-4b47-b49b-a3ec90c05009" />
+) |
 
 ---
 
