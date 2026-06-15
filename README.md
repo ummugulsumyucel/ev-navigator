@@ -167,37 +167,6 @@ feature/
 | `services` | EV servis merkezleri |
 | `news` | Uygulama içi haberler |
 
-
----
-
-## 🖥️ Admin Panel
-
-`admin/` klasöründe ayrı bir Flutter Web uygulaması mevcuttur.
-
-- **Erişim:** Firestore'da `role: "admin"` olan kullanıcılar
-- **Özellikler:** İstasyon CRUD, haber yönetimi, topluluk denetimi, kullanıcı listesi
-
-```bash
-cd admin
-flutter run -d chrome
-```
-
----
-
-## 🤝 Katkı
-
-1. Fork'la
-2. Feature branch oluştur: `git checkout -b feature/yeni-ozellik`
-3. Değişikliklerini commit et: `git commit -m 'feat: yeni özellik eklendi'`
-4. Push at: `git push origin feature/yeni-ozellik`
-5. Pull Request aç
-
----
-
-## 📄 Lisans
-
-Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
-
 ---
 
 <div align="center">
