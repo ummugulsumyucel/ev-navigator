@@ -34,8 +34,7 @@ class StationRepositoryImpl implements StationRepository {
       final stations = snapshot.docs
           .map(StationModel.fromFirestore)
           .map((m) => m.toEntity())
-          .where((s) =>
-              s.location.lng >= minLng && s.location.lng <= maxLng)
+          .where((s) => s.location.lng >= minLng && s.location.lng <= maxLng)
           .where((s) => _matchesFilters(s, filters))
           .toList();
       return stations;
@@ -62,8 +61,8 @@ class StationRepositoryImpl implements StationRepository {
       return false;
     }
     if (filters.socketTypes.isNotEmpty) {
-      final hasType = station.sockets
-          .any((s) => filters.socketTypes.contains(s.type));
+      final hasType =
+          station.sockets.any((s) => filters.socketTypes.contains(s.type));
       if (!hasType) return false;
     }
     if (filters.minPowerKw != null) {
@@ -74,6 +73,23 @@ class StationRepositoryImpl implements StationRepository {
       if (maxPower < filters.minPowerKw!) return false;
     }
     return true;
+  }
+
+  @override
+  Stream<List<ChargingStationEntity>> watchAllStations({
+    StationFiltersEntity? filters,
+  }) {
+    return _firestore
+        .collection(_stations)
+        .limit(500)
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs
+          .map(StationModel.fromFirestore)
+          .map((m) => m.toEntity())
+          .where((s) => _matchesFilters(s, filters))
+          .toList();
+    });
   }
 
   @override
@@ -118,7 +134,10 @@ class StationRepositoryImpl implements StationRepository {
   @override
   Future<void> addReview(StationReviewEntity review) async {
     final model = ReviewModel.fromEntity(review);
-    await _firestore.collection(_reviews).doc(review.id).set(model.toFirestore());
+    await _firestore
+        .collection(_reviews)
+        .doc(review.id)
+        .set(model.toFirestore());
   }
 
   @override
@@ -149,9 +168,8 @@ class StationRepositoryImpl implements StationRepository {
         .collection(_favorites)
         .where('userId', isEqualTo: userId)
         .snapshots()
-        .map((s) => s.docs
-            .map((d) => d.data()['stationId'] as String)
-            .toList());
+        .map(
+            (s) => s.docs.map((d) => d.data()['stationId'] as String).toList());
   }
 
   @override
@@ -161,7 +179,8 @@ class StationRepositoryImpl implements StationRepository {
     double radiusKm = 10,
     int limit = 10,
   }) async {
-    final cacheKey = 'nearby_${lat.toStringAsFixed(2)}_${lng.toStringAsFixed(2)}';
+    final cacheKey =
+        'nearby_${lat.toStringAsFixed(2)}_${lng.toStringAsFixed(2)}';
 
     try {
       final snapshot = await _firestore.collection(_stations).limit(100).get();
@@ -172,9 +191,8 @@ class StationRepositoryImpl implements StationRepository {
               _distanceKm(lat, lng, s.location.lat, s.location.lng) <= radiusKm)
           .toList();
       stations.sort((a, b) => _distanceKm(
-                lat, lng, a.location.lat, a.location.lng)
-            .compareTo(
-                _distanceKm(lat, lng, b.location.lat, b.location.lng)));
+              lat, lng, a.location.lat, a.location.lng)
+          .compareTo(_distanceKm(lat, lng, b.location.lat, b.location.lng)));
       final result = stations.take(limit).toList();
 
       await _cache.cacheStations(cacheKey, {

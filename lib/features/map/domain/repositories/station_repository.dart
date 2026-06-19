@@ -9,6 +9,11 @@ abstract class StationRepository {
     StationFiltersEntity? filters,
   });
 
+  /// Türkiye geneli tüm istasyonlar (arama için)
+  Stream<List<ChargingStationEntity>> watchAllStations({
+    StationFiltersEntity? filters,
+  });
+
   Future<ChargingStationEntity?> getStation(String id);
 
   Stream<ChargingStationEntity> watchStation(String id);

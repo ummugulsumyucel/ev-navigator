@@ -66,5 +66,4 @@ class DefaultFirebaseOptions {
     projectId: 'ev-navigator-tr',
     storageBucket: 'ev-navigator-tr.firebasestorage.app',
   );
-
 }

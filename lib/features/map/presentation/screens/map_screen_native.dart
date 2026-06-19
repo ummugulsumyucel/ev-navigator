@@ -19,6 +19,7 @@ class MapView extends ConsumerStatefulWidget {
     required this.onStationTap,
     required this.onBoundsChanged,
     required this.searchController,
+    required this.searchFocusNode,
     required this.onSearchChanged,
   });
 
@@ -28,6 +29,7 @@ class MapView extends ConsumerStatefulWidget {
   final void Function(String stationId) onStationTap;
   final void Function(LatLngBounds bounds) onBoundsChanged;
   final TextEditingController searchController;
+  final FocusNode searchFocusNode;
   final void Function(String) onSearchChanged;
 
   @override
@@ -37,6 +39,7 @@ class MapView extends ConsumerStatefulWidget {
 class _MapViewState extends ConsumerState<MapView> {
   GoogleMapController? _mapController;
   final Set<Marker> _markers = {};
+  DateTime _lastBoundsUpdate = DateTime(0);
 
   static const CameraPosition _defaultCamera = CameraPosition(
     target: LatLng(39.9334, 32.8597), // Türkiye merkezi (Ankara)
@@ -103,6 +106,12 @@ class _MapViewState extends ConsumerState<MapView> {
 
   Future<void> _onCameraIdle() async {
     if (_mapController == null) return;
+    final now = DateTime.now();
+    if (now.difference(_lastBoundsUpdate).inMilliseconds < 800) {
+      _buildMarkers();
+      return;
+    }
+    _lastBoundsUpdate = now;
     final bounds = await _mapController!.getVisibleRegion();
     widget.onBoundsChanged(bounds);
     _buildMarkers();
@@ -136,6 +145,7 @@ class _MapViewState extends ConsumerState<MapView> {
           right: 12,
           child: _SearchBar(
             controller: widget.searchController,
+            focusNode: widget.searchFocusNode,
             onChanged: widget.onSearchChanged,
           ),
         ),
@@ -159,8 +169,9 @@ class _MapViewState extends ConsumerState<MapView> {
             child: const Icon(Icons.my_location, color: AppColors.primary),
           ),
         ),
-        // İstasyon yükleniyor göstergesi
-        if (widget.stationsAsync.isLoading)
+        // İstasyon yükleniyor göstergesi — artık mock'lar anında geldiği için nadiren görünür
+        if (widget.stationsAsync.isLoading &&
+            widget.stationsAsync.valueOrNull == null)
           const Positioned(
             top: 70,
             left: 0,
@@ -224,10 +235,12 @@ class _MapViewState extends ConsumerState<MapView> {
 class _SearchBar extends StatelessWidget {
   const _SearchBar({
     required this.controller,
+    required this.focusNode,
     required this.onChanged,
   });
 
   final TextEditingController controller;
+  final FocusNode focusNode;
   final void Function(String) onChanged;
 
   @override
@@ -248,14 +261,27 @@ class _SearchBar extends StatelessWidget {
       ),
       child: TextField(
         controller: controller,
+        focusNode: focusNode,
         onChanged: onChanged,
         style: const TextStyle(color: AppColors.textPrimary, fontSize: 14),
-        decoration: const InputDecoration(
-          hintText: 'İstasyon ara...',
-          hintStyle: TextStyle(color: AppColors.textMuted),
-          prefixIcon: Icon(Icons.search, color: AppColors.textMuted, size: 20),
+        decoration: InputDecoration(
+          hintText: 'İstasyon, şehir veya ağ ara...',
+          hintStyle: const TextStyle(color: AppColors.textMuted),
+          prefixIcon:
+              const Icon(Icons.search, color: AppColors.textMuted, size: 20),
+          suffixIcon: controller.text.isNotEmpty
+              ? IconButton(
+                  icon: const Icon(Icons.close,
+                      color: AppColors.textMuted, size: 18),
+                  onPressed: () {
+                    controller.clear();
+                    onChanged('');
+                  },
+                )
+              : null,
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
         ),

@@ -188,8 +188,9 @@ class _SohChart extends StatelessWidget {
               reservedSize: 28,
               getTitlesWidget: (v, _) {
                 final i = v.toInt();
-                if (i < 0 || i >= reports.length)
+                if (i < 0 || i >= reports.length) {
                   return const SizedBox.shrink();
+                }
                 return Text(
                   '${reports[i].recordedAt.day}/${reports[i].recordedAt.month}',
                   style:
@@ -258,8 +259,9 @@ class _EfficiencyChart extends StatelessWidget {
               reservedSize: 28,
               getTitlesWidget: (v, _) {
                 final i = v.toInt();
-                if (i < 0 || i >= reports.length)
+                if (i < 0 || i >= reports.length) {
                   return const SizedBox.shrink();
+                }
                 return Text(
                   '${reports[i].recordedAt.day}/${reports[i].recordedAt.month}',
                   style:

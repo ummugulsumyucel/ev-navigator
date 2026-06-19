@@ -7,9 +7,6 @@ import '../../domain/entities/station_entity.dart';
 import '../providers/map_providers.dart';
 import '../widgets/station_filter_sheet.dart';
 
-// Platforma göre doğru GoogleMap implementasyonu yüklenir.
-// Web: map_screen_web.dart (JS API index.html'e eklenmiş)
-// Native: map_screen_native.dart
 import 'map_screen_native.dart' if (dart.library.html) 'map_screen_web.dart';
 
 class MapScreen extends ConsumerStatefulWidget {
@@ -21,11 +18,29 @@ class MapScreen extends ConsumerStatefulWidget {
 
 class _MapScreenState extends ConsumerState<MapScreen> {
   final _searchController = TextEditingController();
+  bool _searchFocused = false;
+  final _searchFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _searchFocusNode.addListener(() {
+      setState(() => _searchFocused = _searchFocusNode.hasFocus);
+    });
+  }
 
   @override
   void dispose() {
     _searchController.dispose();
+    _searchFocusNode.dispose();
     super.dispose();
+  }
+
+  void _clearSearch() {
+    _searchController.clear();
+    ref.read(mapViewNotifierProvider.notifier).setSearchQuery('');
+    _searchFocusNode.unfocus();
+    setState(() => _searchFocused = false);
   }
 
   @override
@@ -33,6 +48,8 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     final locationAsync = ref.watch(userLocationProvider);
     final stationsAsync = ref.watch(filteredStationsProvider);
     final activeFilters = ref.watch(mapViewNotifierProvider).filters;
+    final searchQuery = ref.watch(mapViewNotifierProvider).searchQuery;
+    final isSearching = searchQuery.isNotEmpty || _searchFocused;
 
     return Scaffold(
       appBar: _buildAppBar(activeFilters, context),
@@ -43,22 +60,40 @@ class _MapScreenState extends ConsumerState<MapScreen> {
           onRetry: () => ref.invalidate(userLocationProvider),
         ),
         data: (location) {
-          // Kullanıcı konumuna göre başlangıç bounds'ını ayarla
           WidgetsBinding.instance.addPostFrameCallback((_) {
             ref
                 .read(mapViewNotifierProvider.notifier)
                 .initFromLocation(location.latitude, location.longitude);
           });
-          return MapView(
-            locationLat: location.latitude,
-            locationLng: location.longitude,
-            stationsAsync: stationsAsync,
-            onStationTap: (id) => context.push('/map/station/$id'),
-            onBoundsChanged: (bounds) =>
-                ref.read(mapViewNotifierProvider.notifier).updateBounds(bounds),
-            searchController: _searchController,
-            onSearchChanged: (v) =>
-                ref.read(mapViewNotifierProvider.notifier).setSearchQuery(v),
+
+          return Stack(
+            children: [
+              // Harita — her zaman arkada
+              MapView(
+                locationLat: location.latitude,
+                locationLng: location.longitude,
+                stationsAsync: stationsAsync,
+                onStationTap: (id) => context.push('/map/station/$id'),
+                onBoundsChanged: (bounds) => ref
+                    .read(mapViewNotifierProvider.notifier)
+                    .updateBounds(bounds),
+                searchController: _searchController,
+                searchFocusNode: _searchFocusNode,
+                onSearchChanged: (v) {
+                  ref.read(mapViewNotifierProvider.notifier).setSearchQuery(v);
+                  setState(() {});
+                },
+              ),
+              // Arama sonuç listesi — arama aktifken haritanın üstüne geliyor
+              if (isSearching && searchQuery.isNotEmpty)
+                _SearchResultsList(
+                  stationsAsync: stationsAsync,
+                  onTap: (id) {
+                    _clearSearch();
+                    context.push('/map/station/$id');
+                  },
+                ),
+            ],
           );
         },
       ),
@@ -100,7 +135,154 @@ class _MapScreenState extends ConsumerState<MapScreen> {
   }
 }
 
-/// Konum izni verilmediğinde veya alınamazken gösterilen view.
+// ---------------------------------------------------------------------------
+// Arama sonuç listesi overlay
+// ---------------------------------------------------------------------------
+
+class _SearchResultsList extends StatelessWidget {
+  const _SearchResultsList({
+    required this.stationsAsync,
+    required this.onTap,
+  });
+
+  final AsyncValue<List<ChargingStationEntity>> stationsAsync;
+  final void Function(String id) onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: 68,
+      left: 12,
+      right: 12,
+      bottom: 16,
+      child: Material(
+        color: AppColors.card,
+        borderRadius: AppRadius.cardBorder,
+        elevation: 8,
+        child: ClipRRect(
+          borderRadius: AppRadius.cardBorder,
+          child: stationsAsync.when(
+            loading: () => const Center(
+              child: AppLoadingIndicator(message: 'Aranıyor...'),
+            ),
+            error: (e, _) => const Center(
+              child: Text('Arama başarısız'),
+            ),
+            data: (stations) {
+              if (stations.isEmpty) {
+                return const Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.search_off,
+                          size: 48, color: AppColors.textMuted),
+                      SizedBox(height: 12),
+                      Text(
+                        'İstasyon bulunamadı',
+                        style: TextStyle(color: AppColors.textSecondary),
+                      ),
+                    ],
+                  ),
+                );
+              }
+
+              return Column(
+                children: [
+                  // Sonuç sayısı başlığı
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: AppColors.border),
+                      ),
+                    ),
+                    child: Text(
+                      '${stations.length} istasyon bulundu',
+                      style: const TextStyle(
+                        color: AppColors.textSecondary,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.separated(
+                      itemCount: stations.length,
+                      separatorBuilder: (_, __) => const Divider(
+                        height: 0,
+                        color: AppColors.border,
+                      ),
+                      itemBuilder: (context, i) {
+                        final s = stations[i];
+                        return ListTile(
+                          leading: CircleAvatar(
+                            radius: 20,
+                            backgroundColor: s.availableCount > 0
+                                ? AppColors.primary.withValues(alpha: 0.15)
+                                : AppColors.error.withValues(alpha: 0.15),
+                            child: Icon(
+                              Icons.ev_station,
+                              size: 18,
+                              color: s.availableCount > 0
+                                  ? AppColors.primary
+                                  : AppColors.error,
+                            ),
+                          ),
+                          title: Text(
+                            s.name,
+                            style: const TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                          subtitle: Text(
+                            '${s.network.displayName} • ${s.city}',
+                            style: const TextStyle(
+                              color: AppColors.textMuted,
+                              fontSize: 12,
+                            ),
+                          ),
+                          trailing: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                '${s.availableCount}/${s.totalSockets}',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  color: s.availableCount > 0
+                                      ? AppColors.primary
+                                      : AppColors.error,
+                                ),
+                              ),
+                              if (s.pricePerKwh != null)
+                                Text(
+                                  '₺${s.pricePerKwh!.toStringAsFixed(2)}',
+                                  style: const TextStyle(
+                                    fontSize: 11,
+                                    color: AppColors.textMuted,
+                                  ),
+                                ),
+                            ],
+                          ),
+                          onTap: () => onTap(s.id),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+      ),
+    ) as Widget;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Konum izni / hata ekranı
+// ---------------------------------------------------------------------------
+
 class _LocationErrorView extends StatelessWidget {
   final String error;
   final VoidCallback onRetry;
